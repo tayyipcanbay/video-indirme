@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./indir.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <title>Video İndirme Programı</title>
+    <style>
+        .anaKutu {
+            width: 80%;
+            margin: auto;
+            margin-top: 3%;
+        }
+
+        body {
+            background-color: antiquewhite;
+        }
+
+        .baslik {
+            margin-top: 8%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h5 class="baslik">Video İndirme Programı</h5>
+    <div class="text-center anaKutu">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Url Girin</span>
+            <input id="link" type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Video İsmi Girin</span>
+            <input id="isim" type="text" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">
+                <input id="yol" type="file" webkitdirectory directory multiple />
+            </span>
+
+        </div>
+        <input class="btn btn-success" type="submit" value="Başlat!" id="baslat">
+    </div>
+    <div id="alert" class="text-center">
+
+    </div>
+
+    <script>
+        document.getElementById("baslat").addEventListener("click", (event) => {
+            event.preventDefault();
+            let url = document.getElementById("link").value;
+            let path = document.getElementById("yol").files[0].path;
+            path = path.slice(0, path.lastIndexOf('\\') + 1)
+            console.log(path);
+            let isim = document.getElementById("isim").value;
+            indir(url, isim, path).then(
+                (onResolved) => {
+                    let alert = document.getElementById("alert");
+                    let mesaj = document.createTextNode("Başarılı")
+                    alert.appendChild(mesaj);
+                },
+                (onRejected) => {
+                    let alert = document.getElementById("alert");
+                    let mesaj = document.createTextNode("Başarısız")
+                    alert.appendChild(mesaj);
+                }
+            )
+        })
+    </script>
+
+
+</body>
+
+</html>
